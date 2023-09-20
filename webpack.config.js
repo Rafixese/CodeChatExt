@@ -1,13 +1,13 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        'popup/popup': './src/popup/popup.ts',
-        'background/background': './src/background/background.ts'
-        // Add entries for other parts of your extension if needed (e.g., content scripts)
+        'popup/index': './src/popup/index.tsx',
     },
+    mode: "production",
     module: {
         rules: [
             {
@@ -29,16 +29,15 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'popup/index.html',
+            chunks: ['popup/index']
+        }),
         new CopyPlugin({
             patterns: [
-                {from: 'src/popup/popup.html', to: 'popup'},
                 {from: 'src/manifest.json', to: '.'},
                 {from: 'src/icons', to: 'icons'}
-                // ... any other assets to copy
             ],
-        }),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
         })
     ]
 };

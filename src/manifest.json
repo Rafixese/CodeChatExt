@@ -8,11 +8,11 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "popup": {
-    "default_popup": "popup/popup.html"
+  "action": {
+    "default_popup": "popup/index.html"
   },
-  "background": {
-    "service_worker": "background/background.js"
-  },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab"],
+  "host_permissions": [
+    "https://chat.openai.com/*"
+  ]
 }
